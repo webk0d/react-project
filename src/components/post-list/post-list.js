@@ -1,24 +1,26 @@
 import React from 'react';
+
 import PostListItem from '../post-list-item';
+import '../post-list/post-list.css'
 
-import './post-list.css'
+const PostList = ({posts, onDelet}) => {
 
-const PostList = ({posts}) => {
-
-    const elements = posts.map((item) => {
-        if (typeof item === 'object' && isEmpty(item) ) {
+    // eslint-disable-next-line array-callback-return
+    const elements = posts.map( (item) => {
+        if (typeof item === 'object' && isEmpty(item)) { 
             const {id, ...itemProps} = item;
-            
             return (
                 <li key={id} className='list-group-item'>
-                    <PostListItem {...itemProps} />
+                    <PostListItem 
+                        {...itemProps}
+                        onDelet={() => onDelet(id)}/>
                 </li>
             )
         }
     })
 
     function isEmpty(obj) {
-        for(let key in obj)
+        for(let key in obj)  
         {
             return true;
         }
@@ -27,7 +29,7 @@ const PostList = ({posts}) => {
 
     return (
         <ul className="app-list list-group">
-            {elements}
+           {elements}
         </ul>
     )
 }
